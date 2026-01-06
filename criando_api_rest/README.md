@@ -1,4 +1,4 @@
-📡 Mentoria REST API — Conceitos Fundamentais e Consumo com Python
+📡 REST API — Conceitos Fundamentais e Consumo com Python
 
 Este repositório reúne os conceitos essenciais sobre APIs REST, utilizando exemplos práticos e didáticos inspirados na API do Instagram, com foco no entendimento de requisições HTTP, JSON, CRUD e consumo de APIs em Python.
 

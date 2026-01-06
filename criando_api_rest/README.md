@@ -1,5 +1,7 @@
 📡 REST API — Conceitos Fundamentais e Consumo com Python
 
+API do exemplo de faturamento desenvolida e disponibilizada no endpoint https://41e64eff-1a89-4de1-8eec-a0b1787d6dd2-00-1ti5kr0inb3cr.riker.replit.dev/
+
 Este repositório reúne os conceitos essenciais sobre APIs REST, utilizando exemplos práticos e didáticos inspirados na API do Instagram, com foco no entendimento de requisições HTTP, JSON, CRUD e consumo de APIs em Python.
 
 O descritivo desse README é ideal para quem está iniciando no tema ou deseja consolidar os fundamentos antes de avançar para frameworks como Flask ou FastAPI.

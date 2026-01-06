@@ -1,144 +1,158 @@
-📡 REST API — Conceitos Fundamentais e Consumo com Python
+📊 API de Vendas com Flask
 
-API do exemplo de faturamento desenvolida e disponibilizada no endpoint https://41e64eff-1a89-4de1-8eec-a0b1787d6dd2-00-1ti5kr0inb3cr.riker.replit.dev/
+Esta API REST foi desenvolvida em Python utilizando Flask com o objetivo de disponibilizar informações de faturamento e vendas por produto a partir de uma planilha Excel.
 
-Este repositório reúne os conceitos essenciais sobre APIs REST, utilizando exemplos práticos e didáticos inspirados na API do Instagram, com foco no entendimento de requisições HTTP, JSON, CRUD e consumo de APIs em Python.
+O projeto demonstra, de forma prática, como:
 
-O descritivo desse README é ideal para quem está iniciando no tema ou deseja consolidar os fundamentos antes de avançar para frameworks como Flask ou FastAPI.
+Criar endpoints REST
 
-🧠 O que é uma API?
+Ler dados com pandas
 
-API (Application Programming Interface) é uma interface que permite a comunicação entre sistemas diferentes, sem a necessidade de interface gráfica.
+Agregar informações
 
-👉 Em termos simples:
+Retornar respostas em formato JSON
 
-Um sistema faz um pedido
+🚀 API publicada
 
-Outro sistema responde com dados
+A API está publicada e em funcionamento, podendo ser acessada em:
 
-A comunicação ocorre por requisições HTTP
+🔗 URL base:
 
-Os dados normalmente vêm em JSON
+https://41e64eff-1a89-4de1-8eec-a0b1787d6dd2-00-1ti5kr0inb3cr.riker.replit.dev/
 
-📌 Esse tipo de estrutura é exatamente o que recebemos ao consumir uma API.
+🧠 Visão geral do projeto
 
-🔁 Como pedir informações para uma API?
+A aplicação lê um arquivo Excel chamado Vendas - Dez.xlsx
 
-A comunicação ocorre por meio dos protocolos HTTP, usando métodos específicos.
+A base contém, entre outras colunas:
 
-📌 Principais métodos HTTP
-Método	Ação	Conceito
-GET	Ler	Buscar informações
-POST	Criar	Criar novos registros
-PUT / PATCH	Atualizar	Atualizar registros
-DELETE	Deletar	Remover registros
-🗂️ CRUD e sua relação com APIs
+Produto
 
-CRUD representa as operações básicas de um banco de dados:
+Valor Final
 
-CRUD	Método HTTP
-Create	POST
-Read	GET
-Update	PUT / PATCH
-Delete	DELETE
-🐍 Consumindo APIs com Python
+A API processa esses dados e expõe:
 
-Utilizamos a biblioteca requests para realizar requisições HTTP.
+Faturamento total
 
-🔧 Instalação
-pip install requests
+Vendas agregadas por produto
 
-🔹 Exemplo 1 — Buscar todos os usuários
-import requests
+Faturamento de um produto específico
 
-response = requests.get("api.instagram.com/usuarios")
-print(response.json())
-
-
-🔹 Retorno esperado:
-
-{
-  "ID254": "franciscoccarneiro",
-  "ID357": "fulanodetal",
-  "ID222": "siclanodetal"
-}
-
-🔹 Exemplo 2 — Buscar informações de um usuário específico
-requests.get("api.instagram.com/usuarios/franciscoccarneiro")
-
-
-🔹 Retorno:
-
-{
-  "ID254": {
-    "nome": "Francisco",
-    "idade": 43,
-    "amigos": ["ID255", "ID256", "ID302"],
-    "foto_perfil": "francisco.png"
-  }
-}
-
-🔹 Exemplo 3 — Criar um post (POST)
-requests.post(
-    "api.instagram.com/usuarios/franciscoccarneiro/post",
-    data={
-        "foto": "francisco2.png",
-        "titulo": "teste",
-        "descricao": "teste aqui"
-    }
-)
-
-
-🔹 Retorno:
-
-{
-  "status": "sucesso"
-}
-
-🔹 Exemplo 4 — Buscar um post específico
-requests.get("api.instagram.com/usuarios/franciscoccarneiro/post/5")
-
-🔹 Exemplo 5 — Atualizar um post (PATCH)
-requests.patch(
-    "api.instagram.com/usuarios/franciscoccarneiro/post/5",
-    data={"titulo": "aleatório"}
-)
-
-🔐 Segurança em APIs
-
-APIs definem:
-
-O que pode ser acessado
-
-Quem pode acessar
-
-Quais ações são permitidas
-
-📌 Isso garante:
-
-Proteção dos dados
-
-Padronização
-
-Facilidade de integração com aplicativos, sites e outros sistemas
-
-
-No exemplo prático eu criei uma api para integrar APIs com bancos de dados
-
-📚 Tecnologias abordadas
-
-HTTP
-
-JSON
+🧱 Tecnologias utilizadas
 
 Python
 
-Biblioteca requests
+Flask
 
-Conceitos REST
+Pandas
 
-CRUD
+Excel como fonte de dados
 
-🧑‍🏫 Objetivo do repositório
+API REST
 
-Este repositório tem como objetivo servir como material de apoio de mentoria, reforçando a base conceitual necessária para trabalhar com integrações, automações, engenharia de dados e ciência de dados.
+JSON
+
+📂 Estrutura lógica do projeto
+app.py
+Vendas - Dez.xlsx
+
+🔗 Endpoints disponíveis
+🔹 1. Faturamento total
+
+Endpoint
+
+GET /
+
+
+Descrição
+Retorna o faturamento total somando a coluna Valor Final da planilha.
+
+Exemplo de resposta
+
+{
+  "faturamento": 125430.75
+}
+
+🔹 2. Vendas agrupadas por produto
+
+Endpoint
+
+GET /vendas/produtos
+
+
+Descrição
+Retorna o faturamento total agrupado por produto.
+
+Exemplo de resposta
+
+{
+  "Valor Final": {
+    "Notebook": 45000,
+    "Monitor": 32000,
+    "Mouse": 8000
+  }
+}
+
+🔹 3. Faturamento de um produto específico
+
+Endpoint
+
+GET /vendas/produtos/<produto>
+
+
+📌 Substitua <produto> pelo nome do produto exatamente como está na planilha.
+
+Exemplo
+
+GET /vendas/produtos/Notebook
+
+
+Resposta
+
+{
+  "Valor Final": 45000
+}
+
+
+🔸 Caso o produto não exista:
+
+{
+  "ProdutoX": "Inexistente"
+}
+
+🐍 Código principal da aplicação
+from flask import Flask
+import pandas as pd
+
+app = Flask(__name__)
+tabela = pd.read_excel("Vendas - Dez.xlsx")
+
+@app.route("/")
+def fat():
+    faturamento = float(tabela["Valor Final"].sum())
+    return {"faturamento": faturamento}
+
+@app.route("/vendas/produtos")
+def vendas_produtos():
+    tabela_vendas_produtos = tabela[["Produto", "Valor Final"]].groupby("Produto").sum()
+    return tabela_vendas_produtos.to_dict()
+
+@app.route("/vendas/produtos/<produto>")
+def fat_produto(produto):
+    tabela_vendas_produtos = tabela[["Produto", "Valor Final"]].groupby("Produto").sum()
+    if produto in tabela_vendas_produtos.index:
+        return tabela_vendas_produtos.loc[produto].to_dict()
+    else:
+        return {produto: "Inexistente"}
+
+app.run()
+
+▶️ Como executar localmente
+1️⃣ Instalar dependências
+pip install flask pandas openpyxl
+
+2️⃣ Executar a aplicação
+python app.py
+
+3️⃣ Acessar no navegador
+http://127.0.0.1:5000/
